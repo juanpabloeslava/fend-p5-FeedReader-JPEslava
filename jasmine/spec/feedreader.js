@@ -26,17 +26,34 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-
-
+        it('have URL', function () {
+            for (const indFeed of allFeeds) {
+                // should be defined
+                expect(indFeed.url).toBeDefined();
+                // should not be empty
+                expect(indFeed.url.length).not.toBe(0);
+                // just to be sure, write on console
+                console.log (`indFeed.url:  ${indFeed.url}`);
+            }
+        });
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('have Name', function () {
+            for (const indFeed of allFeeds) {
+                // should be defined
+                expect(indFeed.name).toBeDefined();
+                // should not be empty
+                expect(indFeed.name.length).not.toBe(0);
+                // just to be sure, write on console
+                console.log (`indFeed.name:  ${indFeed.name}`);
+            }
+        });
     });
 
 
