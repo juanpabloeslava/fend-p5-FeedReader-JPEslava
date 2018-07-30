@@ -9,26 +9,19 @@
 * to ensure they don't run until the DOM is ready.
 */
 $(function() {
-    /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+    /* Test Suite 1: RSS Feeds (allFeeds var in app.js) */  
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
         * allFeeds variable has been defined and that it is not
-        * empty. Experiment with this before you get started on
-        * the rest of this project. What happens when you change
-        * allFeeds in app.js to be an empty array and refresh the
-        * page?
+        * empty.
         */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
-        /* TODO: Write a test that loops through each feed
-        * in the allFeeds object and ensures it has a URL defined
-        * and that the URL is not empty.
-        */
+
+       // test 1: check if each feed has a URL in it, and then check
+       // if that URL is not empty 
         it('have URL', function () {
             for (const indFeed of allFeeds) {
                 // should be defined
@@ -39,10 +32,9 @@ $(function() {
                 console.log (`indFeed.url:  ${indFeed.url}`);
             }
         });
-        /* TODO: Write a test that loops through each feed
-        * in the allFeeds object and ensures it has a name defined
-        * and that the name is not empty.
-        */
+
+       // test 2: check if each feed has a Name in it, and then check
+       // if that Name is not empty 
         it('have Name', function () {
             for (const indFeed of allFeeds) {
                 // should be defined
@@ -55,28 +47,21 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* Test Suite 2: Menu */  
     describe('The menu', function () {
         let feedContainer = document.querySelector('body');
         let menuIcon = document.querySelector('.menu-icon-link');
-        /* TODO: Write a test that ensures the menu element is
-        * hidden by default. You'll have to analyze the HTML and
-        * the CSS to determine how we're performing the
-        * hiding/showing of the menu element.
-        */
+        
+        // Test 1: Menu is hidden by default
         it('is hidden by default', function () {
             // the menu is hidden by adding a class to the body, 
             // so we'll check if it has that class
             // expect(feedContainer.hasClass('menu-hidden')).toBe(true);
             expect(feedContainer.className).toContain('menu-hidden');
         });
-        
-        /* TODO: Write a test that ensures the menu changes
-        * visibility when the menu icon is clicked. This test
-        * should have two expectations: does the menu display when
-        * clicked and does it hide when clicked again.
-        */
-       it('changes visibility on click', function () {
+
+        // Test 2: Menu is shown and then hidden by clicking on the menu icon button
+        it('changes visibility on click', function () {
             // click a first time and check
             menuIcon.click();
             expect(feedContainer.className).not.toContain('menu-hidden');
@@ -86,14 +71,10 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Test Suite 2: Initial Entries */  
     describe('Initial Entries', function () {
-        /* TODO: Write a test that ensures when the loadFeed
-        * function is called and completes its work, there is at least
-        * a single .entry element within the .feed container.
-        * Remember, loadFeed() is asynchronous so this test will require
-        * the use of Jasmine's beforeEach and asynchronous done() function.
-        */
+       // the use of beforeEach is important because we're dealing with async functions
+       // BeforeEach test, do the following:
         beforeEach( function (done) {
             // uses the done() to tell the beforeEach that the other action has been finished
             loadFeed(0, function () {
@@ -102,6 +83,7 @@ $(function() {
             });
         });
 
+        // test 1: Check if there's at least one feed entry after the loadFeed function is called
         it('has at least one entry', function () {
             // all .entry elements inside .feed elements in DOM
             // let entries = $('.feed .entry');
@@ -112,15 +94,13 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* Test Suite 3: New Feed Selection */  
     describe('New Feed Selection', function () {
-        /* TODO: Write a test that ensures when a new feed is loaded
-        * by the loadFeed function that the content actually changes.
-        * Remember, loadFeed() is asynchronous.
-        */
         let firstFeed;
         let secondFeed;
-       
+        
+        // the use of beforeEach is important because we're dealing with async functions
+        // BeforeEach test, do the following:
         beforeEach( function (done) {
             // call loadFeed() for a first time
             loadFeed(0, function () {
@@ -128,16 +108,18 @@ $(function() {
                 firstFeed = document.querySelector('.feed').innerHTML;
                 // call loadFeed() again
                 loadFeed(1, function () {
+                    // store the second retrieved feed into the secondFeed variable
                     secondFeed = document.querySelector('.feed').innerHTML;
                     // call the done() after everything needed is already on the DOM
                     done();
                 });
             });
         });
+
         // test if the content of each feed is different (just compare the variables)
+        // test 1: when a new feed is loaded, the content actually changes
         it('feeds are different from one another', function () {
             expect(firstFeed).not.toBe(secondFeed);
         });
     });
-
 }());
