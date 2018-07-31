@@ -49,6 +49,7 @@ $(function() {
 
     /* Test Suite 2: Menu */  
     describe('The menu', function () {
+        // let feedContainer = $('body'); 
         let feedContainer = document.querySelector('body');
         let menuIcon = document.querySelector('.menu-icon-link');
         
@@ -57,17 +58,19 @@ $(function() {
             // the menu is hidden by adding a class to the body, 
             // so we'll check if it has that class
             // expect(feedContainer.hasClass('menu-hidden')).toBe(true);
-            expect(feedContainer.className).toContain('menu-hidden');
+            expect(feedContainer.classList).toContain('menu-hidden');
         });
-
+        
         // Test 2: Menu is shown and then hidden by clicking on the menu icon button
         it('changes visibility on click', function () {
             // click a first time and check
             menuIcon.click();
-            expect(feedContainer.className).not.toContain('menu-hidden');
+            // expect(feedContainer.hasClass('menu-hidden')).toBe(false);
+            expect(feedContainer.classList).not.toContain('menu-hidden');
             // click a second time and check
             menuIcon.click();
-            expect(feedContainer.className).toContain('menu-hidden');
+            // expect(feedContainer.hasClass('menu-hidden')).toBe(true);
+            expect(feedContainer.classList).toContain('menu-hidden');
         });
     });
 
